@@ -15,7 +15,7 @@ pip install -r requirements.txt
 cd src
 python server.py
 ```
-Das Spiel ist dann auf dem lokalen PC via port 5000 aufrufbar<br>
+Das Spiel ist dann auf dem lokalen PC via port 5100 aufrufbar<br>
 Um das Spiel auch im Netzwerk spielbar zu machen muss der Port in der Windows Firewall geöffnet werden
 
 Als Alternative gibt es ein Dockerfile, womit ein Docker Container erstellt werden kann.<br>
