@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Start Game
+{% endblock %}
+
+{% block extrahead %}
+    <style type="text/css">
+        body {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Journey Through Europe</h1>
+    <h2>Create or Join Game</h2>
+    <img src="static/europe.png" width="30%">
+    <br>
+    <form action="/create/" method="GET">
+    <button>Create</button>
+        </form>
+    <br>
+    <form id="joinForm" action="" method="POST" onsubmit="openJoinPage(); return false;">
+        <input type="number" placeholder="Game Number" name="game_number_input" id="gameNumberInput" required>
+        <button type="submit">Join</button>
+    </form>
+    <br>
+    <form id="rules" action="/rules/">
+    <button type="submit">Rules of the Game</button>
+    </form>
+    <script>
+        function openJoinPage() {
+            // Get the input value
+            var gameNumberInput = document.getElementById('gameNumberInput').value;
+
+            // Open the join page in a new window
+            window.open("/join/" + gameNumberInput, "_blank");
+        }
+    </script>
+{% endblock %}

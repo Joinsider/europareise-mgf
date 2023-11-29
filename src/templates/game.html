@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Journey Through Europe
+{% endblock %}
+
+{% block extrahead %}
+    <link href="/static/game-style.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <script type="text/json" id="cities">
+    {{ cities }}
+    </script>
+    <script type="text/json" id="airports">
+    {{ airports }}
+    </script>
+
+    <h1>Journey Through Europe</h1>
+
+    <!-- <code id="debug-area"></code> -->
+
+    <div id="loading-div">LOADING...</div>
+    <div id="left-panel">
+
+        <ol id="player-list">
+            <li><span class="player-name">Loading...</span><br />...</li>
+        </ol>
+
+        <span id="canvas-wrapper">
+            <ol id="toast-list"></ol>
+
+            <span id="buttons-bar">
+                <span>
+                    <button id="fullscreen-button" style="width:50px; height:50px"
+                            title="Reset view" class="image-button"></button>
+
+                    <button id="flight-plan-button" style="width:50px; height:50px"
+                            title="Toggle flight plan" class="image-button"></button>
+                </span>
+
+                <span class="actions">
+                    <button id="wait-at-port-button">Wait at port</button>
+                    <button id="roll-dice-button">Roll</button>
+                    <img id="dice-points" width="50" height="50" /> <!-- src is set in JS upon dice roll -->
+                    <img id="loading-gif" src="/static/loading.gif" width="50" height="50" />
+                </span>
+            </span>
+            <canvas id="game-canvas"></canvas>
+        </span>
+
+        <ol id="card-list">
+            <li>Loading...</li>
+        </ol>
+    </div>
+
+    <div id="gray-screen"></div>
+    <div id="action-choice-popup" class="popup">
+        Choose action...
+        <ul></ul>
+    </div>
+
+    <div id="end-game-popup" class="popup">
+        <p><b></b> has won!</p>
+        <p><a href="/" title="Create new game">Create new game</a></p>
+    </div>
+
+    <div id="right-panel"></div>
+
+    <script type="text/javascript" src="/static/grid/matrix.js"></script>
+    <script type="text/javascript" src="/static/grid/grid.js"></script>
+    <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/static/game.js?j={{ random_num }}"></script>
+{% endblock %}
