@@ -26,5 +26,5 @@ Für die Docker Instalation:
 
 ```
 docker build -t jte .
-docker run -d -p 5000:5000 jte
+docker run -d -p 5100:5100 jte
 ```
