@@ -1,13 +1,13 @@
-import os
-import random
 import json
-import time
+import os
 import pickle
+import random
+import shutil
+import time
 
 from flask import Flask, render_template, request, redirect, abort, session
 
 from matchmaking import Matchmaker, InvalidNameException, GameFullException
-
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -199,6 +199,17 @@ def perform_action(game_id):
     save_matchmaker(game_id, m)
     return "Success", 200
 
+@app.route("/delete/<int:game_id>/", methods=["POST"])
+def delete_game(game_id):
+    """Delete the game folder and all statuses of the selected game"""
+    check_game_exists(game_id)
+    game_folder = os.path.join(GAME_FILES_DIRECTORY, str(game_id))
+    if os.path.exists(game_folder):
+        shutil.rmtree(game_folder)
+        session.pop(str(game_id), None)
+        return redirect("/")
+    else:
+        return "Game not found", 404
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5100, debug=False)

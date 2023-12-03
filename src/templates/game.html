@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Journey Through Europe
+    Game - Travel through Europe
 {% endblock %}
 
 {% block extrahead %}
@@ -62,7 +62,10 @@
 
     <div id="end-game-popup" class="popup">
         <p><b></b> has won!</p>
-        <p><a href="/" title="Create new game">Create new game</a></p>
+        <form id="delete-game-form" method="POST" onsubmit="redirectDelete">
+            <button id="delete-game">Create new Game</button>
+        </form>
+
     </div>
 
     <div id="right-panel"></div>
@@ -71,4 +74,19 @@
     <script type="text/javascript" src="/static/grid/grid.js"></script>
     <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/static/game.js?j={{ random_num }}"></script>
+
+    <script>
+        function redirectDelete() {
+            game_id = getIdFromUrl();
+            // window replace to /delete/gameid
+            window.location.replace("/delete/" + game_id);
+        }
+
+        function getIdFromUrl() {
+            var pathSegments = window.location.pathname.split('/');
+            var gameIdIndex = pathSegments.indexOf('play') + 1;
+            return pathSegments[gameIdIndex];
+        }
+
+    </script>
 {% endblock %}
