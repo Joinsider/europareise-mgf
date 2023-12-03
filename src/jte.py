@@ -1,8 +1,7 @@
-import sys
+import copy
 import json
 import random
 import time
-import copy
 from enum import Enum
 
 
@@ -19,7 +18,7 @@ class InvalidActionException(Exception):
 
 
 class LinkTypes(Enum):
-    """An enum to store the availble types of link between cities"""
+    """An enum to store the available types of link between cities"""
     LAND = "land"
     SEA = "sea"
     AIR = "air"
@@ -197,6 +196,9 @@ class Game(object):
             self.current_turn.dice_points != self.current_turn.dice_roll):
 
             actions.append({"type": Game.WAIT_AT_PORT_ACTION})
+        # When in Reykjavik, allow waiting at port even if not at a sea port
+        if (self.current_player.current_city == 166 and self.current_turn.dice_points is not None):
+            actions.append({"type": Game.WAIT_AT_PORT_ACTION})
 
         # Add IDs to each action
         for i, action in enumerate(actions):
@@ -208,7 +210,7 @@ class Game(object):
         """Perform an action as the player with the username provided"""
 
         if username != self.current_player.name:
-            msg = "It is not {}'s turn".format(player.name)
+            msg = "It is not {}'s turn".format(username)
             raise AuthenticationException(msg)
 
         action = None
@@ -307,6 +309,14 @@ class Game(object):
 
         return available_links
 
+    def has_exclusively_sea_connections(self, city_id):
+        """Check if the city has exclusively sea connections"""
+        for link in self.game_map["links"]:
+            if city_id in link["cities"]:
+                if link["type"] != LinkTypes.SEA.value:
+                    return False
+        return True
+
     def travel_to(self, link):
         """Move the current player along the link provided"""
 
@@ -322,6 +332,10 @@ class Game(object):
 
         self.current_player.current_city = link["to_city"]
         self.current_turn.cities.append(link["to_city"])
+
+        # Check if to city has exlusively sea connections and if so set waiting at port to true
+        if self.has_exclusively_sea_connections(link["to_city"]):
+            self.current_player.waiting_at_port = True
 
         end_turn = False
 
@@ -371,11 +385,17 @@ class Game(object):
             if set(player.cities_visited) == set(player.cities):
                 self.end_game(player)
 
+    # Get game id from url /join/<int:game_id>/
+    def get_game_id():
+        # get game id from url
+
+        return self.game_id
+
     def end_game(self, winner):
         self.in_progress = False
+        self.update_status()
         self.message_log.add("{} has won!".format(winner.name))
         self.winner = winner.name
-
     def get_status(self, username):
         """Return the status as set in update_status(). username is the name of the user
         retreiving the status"""

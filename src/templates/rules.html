@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Start Game
+    Rules - Travel through Europe
 {% endblock %}
 
 {% block extrahead %}
     <style type="text/css">
         body {
+            text-align: left;
+        }
+        #back {
             text-align: center;
         }
     </style>
@@ -14,4 +17,93 @@
 
 {% block body %}
     <h1>Rules</h1>
+    <form action="/" id="back">
+        <button type="submit">Get back to the Startpage</button>
+    </form>
+    <dl>
+        <dt>
+            <h2>Start Game:</h2>
+        <dt>
+            <h3>Create a Game:</h3>
+        </dt>
+            <dd>
+                <ol>
+                    <li>To create a game start on the Startpage and click on the Create Button. You will then get to a site on which you have
+                        to enter the number of players.<br><img src="/static/rules-images/startpage.png" width="20%"></li>
+                    <li>After that you will be asked to enter a username you like.<br><img src="/static/rules-images/username.png"</li>
+                    <li>Now you see a Game ID which you have to give to the other players after that you have to wait for the other players to join the Game.
+                        <br><img src="/static/rules-images/gameid.png"</li>
+                </ol>
+            </dd>
+        <dt>
+            <h3>Join a Game:</h3>
+        </dt>
+            <dd>
+                <ol>
+                    <li>To join a game you have to enter the Game ID you got from the player who created the game.</li>
+                    <li>After that you will be asked to enter a username you like. And now the game starts.</li>
+                </ol>
+            </dd>
+        <br><br>
+        <h2>Gameplay:</h2>
+        <dt>
+            <h3>Start:</h3>
+        </dt>
+            <dd>
+                <ul>
+                    <li>You will start in a random location on the map. Search for your marker which has the same color as your name on the top.
+                        <img src="/static/rules-images/flags.png" width="2%"></li>
+                    <li>The player, that created the game will start.</li>
+                    <li>If it's your turn then roll the dice by clicking on the button in the top right.<br><img src="/static/rules-images/roll.png"></li>
+                </ul>
+            </dd>
+        <dt>
+            <h3>Goal of the Game:</h3>
+        </dt>
+            <dd>
+                <ul>
+                    <li>The goal of the Game is to visit 8 European cities and get back to your starting location.</li>
+                    <li>Your starting and target location are marked with a star. <img src="/static/rules-images/star.png" width="2%"></li>
+                    <li>You can only visit your starting location if you have visited all other locations.</li>
+                </ul>
+            </dd>
+        <dt>
+            <h3>Move:</h3>
+            <dd>
+                <ul>
+                    <li>After you rolled the dice you can move your marker by clicking on the location you want to move to.</li>
+                    <li>You can only move to locations that are connected to your current location.</li>
+                    <li>There are different forms of travelling possible:
+                        <dl>
+                            <dt>By Land:</dt>
+                                <dd>This is the normal type of movement and can be done if the connection has a solid line</dd>
+                            <dt>By Sea:</dt>
+                                <dd>This type of movement can be done if the connection has a dotted line</dd>
+                                <dd>This can only be done if you are at a city with a port (dotted connection)</dd>
+                                <dd>If you have moves left you can wait at port and in the next round you can only travel to your destination city</dd>
+                            <dt>By Air:</dt>
+                                <dd>This type of movement can only be done on major (red) cities</dd>
+                                <dd>You can see the sectors by clicking on the little plane button in the corner</dd>
+                                <dd>There is also a difference between flights within one sector and outside:<br>
+                                    <ol>
+                                        <li>Flights within one sector cost 2 moves</li>
+                                        <li>Flights outside of one sector cost 4 moves</li>
+                                    </ol>
+                                </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </dd>
+        </dt>
+    </dl>
+
+    <br><br>
+    <form action="/" id="back">
+        <button type="submit">Get back to the Startpage</button>
+    </form>
+    <br><br>
+
+
+
+
 {% endblock %}
