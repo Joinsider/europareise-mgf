@@ -869,26 +869,26 @@ function performAction(action_id) {
  * Send an AJAX request to be updated on the current status of the game
  */
 function getStatus() {
-    $.ajax(STATUS_URL + latest_timestamp + "/", {
-        "method": "GET",
-        "error": function(request, status, error) {
-            throw "Unexpected error retrieving status";
-        },
-        "success": function(response, status, request) {
-            // $("#debug-area").text(response);
+        $.ajax(STATUS_URL + latest_timestamp + "/", {
+            "method": "GET",
+            "error": function (request, status, error) {
+                throw "Unexpected error retrieving status";
+            },
+            "success": function (response, status, request) {
+                // $("#debug-area").text(response);
 
-            // Only update if the response was 200 (i.e. something new
-            // has happened)
-            if (request.status == 200) {
-                var game_status = JSON.parse(response);
-                latest_timestamp = game_status.timestamp;
+                // Only update if the response was 200 (i.e. something new
+                // has happened)
+                if (request.status == 200) {
+                    var game_status = JSON.parse(response);
+                    latest_timestamp = game_status.timestamp;
 
-                game.updateDisplay(game_status);
+                    game.updateDisplay(game_status);
+                }
             }
-        }
-    });
-}
+        });
 
+}
 /*
  * Set the size and position of the provided canvas to maintain aspect ratio
  * of map image and fill width or height of available space
